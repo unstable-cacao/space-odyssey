@@ -1,0 +1,13 @@
+{
+    "name": "unstable-cacao/space-odyssey",
+    "type": "web",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Puchkov",
+            "email": "alexey@oktopost.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
