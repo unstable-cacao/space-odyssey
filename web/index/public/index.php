@@ -1,0 +1,2 @@
+<?php
+// boot index server
