@@ -2,13 +2,13 @@
 namespace SpaceOdyssey\DAO;
 
 
-use SpaceOdyssey\Base\DAO\IUserDAO;
+use SpaceOdyssey\Base\DAO\ISessionDAO;
 use SpaceOdyssey\MySQLConnection;
-use SpaceOdyssey\Objects\User;
+use SpaceOdyssey\Objects\Session;
 use Squid\MySql\Impl\Connectors\Object\Generic\GenericIdConnector;
 
 
-class UserDAO implements IUserDAO
+class SessionDAO implements ISessionDAO
 {
 	/** @var \Squid\MySql\IMySqlConnector */
 	private $conn;
@@ -23,24 +23,19 @@ class UserDAO implements IUserDAO
 		$this->objectConn = new GenericIdConnector();
 		$this->objectConn
 			->setConnector($this->conn)
-			->setAutoIncrementId('ID')
-			->setTable('User')
-			->setObjectMap(User::class, ['Created', 'Modified']);
+			->setIdKey('ID')
+			->setTable('Session')
+			->setObjectMap(Session::class, ['Created']);
 	}
 	
 	
-	public function load(int $ID): ?User
+	public function load(int $ID): ?Session
 	{
 		return $this->objectConn->loadById($ID);
 	}
 	
-	public function loadByUsername(string $username): ?User
+	public function save(Session $session): void
 	{
-		return $this->objectConn->selectObjectByField('Username', $username);
-	}
-	
-	public function save(User $user): void
-	{
-		$this->objectConn->save($user);
+		$this->objectConn->save($session);
 	}
 }

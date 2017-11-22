@@ -9,5 +9,5 @@ interface IUserDAO
 {
 	public function load(int $ID): ?User;
 	public function loadByUsername(string $username): ?User;
-	public function save(User $user): bool;
+	public function save(User $user): void;
 }
