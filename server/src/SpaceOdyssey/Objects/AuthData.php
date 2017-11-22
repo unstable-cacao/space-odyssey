@@ -6,6 +6,10 @@ use Objection\LiteObject;
 use Objection\LiteSetup;
 
 
+/**
+ * @property User		$AuthorizedUser
+ * @property Session 	$Session
+ */
 class AuthData extends LiteObject
 {
 	/**

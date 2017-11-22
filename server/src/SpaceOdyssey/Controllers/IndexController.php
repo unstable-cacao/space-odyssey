@@ -2,21 +2,25 @@
 namespace SpaceOdyssey\Controllers;
 
 
+use SpaceOdyssey\Base\Modules\IAuthModule;
+use SpaceOdyssey\SkeletonInit;
+
+
 class IndexController extends Controller
 {
-	public function index()
+	protected function index()
 	{
 		return 'Hello World!!';
 	}
 	
-	public function login()
+	protected function login()
 	{
 		include __DIR__ . '/../../../../web/index/views/login.php';
 	}
 	
 	public function postLogin(string $username, string $password)
-	{
-		if ($username == 'admin' && $password == '1234')
+	{var_dump(SkeletonInit::skeleton(IAuthModule::class)->loadByAuth($username, $password));die;
+		if (SkeletonInit::skeleton(IAuthModule::class)->loadByAuth($username, $password))
 			return 'Success!';
 		else
 			return 'Fail!';

@@ -19,7 +19,7 @@ class Routing
 		$klein->respond('POST', '/login', function ($request)
 		{
 			$controller = new IndexController();
-			return $controller->postLogin($request->get('username'), $request->get('password'));
+			return $controller->postLogin($request->param('username'), $request->param('password'));
 		});
 		
 		
