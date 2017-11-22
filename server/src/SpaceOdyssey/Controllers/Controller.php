@@ -2,11 +2,46 @@
 namespace SpaceOdyssey\Controllers;
 
 
+use SpaceOdyssey\Base\Modules\IAuthModule;
+use SpaceOdyssey\Objects\AuthData;
+use SpaceOdyssey\SkeletonInit;
+
+
 abstract class Controller
 {
+	/** @var AuthData */
+	private $auth;
+	
+	
+	public function setAuthData(AuthData $data)
+	{
+		$this->auth = $data;
+	}
+	
+	public function getAuthData(): AuthData
+	{
+		return $this->auth;
+	}
+	
+	
 	public static function __callStatic(string $action, array $arguments)
 	{
 		$self = new static();
-		$self->$action(...$arguments);
+		$request = $arguments[0];
+		
+		$sessionID = $request->cookies()->get('sessionID');
+		
+		if ($sessionID)
+		{
+			$authData = SkeletonInit::skeleton(IAuthModule::class)->loadBySessionID($sessionID);
+			
+			if ($authData)
+			{
+				$self->setAuthData($authData);
+				$self->$action(...$arguments);
+			}
+		}
+		
+		IndexController::login($arguments[0]);
 	}
 }
