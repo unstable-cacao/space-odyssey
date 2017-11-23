@@ -35,9 +35,13 @@ class AuthModule implements IAuthModule
 		if ($session)
 		{
 			$user = SkeletonInit::skeleton(IUserDAO::class)->load($session->UserID);
-			$result = new AuthData();
-			$result->Session = $session;
-			$result->AuthorizedUser = $user;
+			
+			if ($user) 
+			{
+				$result = new AuthData();
+				$result->Session = $session;
+				$result->AuthorizedUser = $user;
+			}
 		}
 		
 		return $result;

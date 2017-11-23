@@ -39,6 +39,8 @@ abstract class Controller
 			{
 				$self->setAuthData($authData);
 				$self->$action(...$arguments);
+				
+				return;
 			}
 		}
 		

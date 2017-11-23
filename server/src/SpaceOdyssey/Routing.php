@@ -16,10 +16,10 @@ class Routing
 			return IndexController::index($request);
 		});
 		
-		$klein->respond('POST', '/login', function ($request)
+		$klein->respond('POST', '/login', function ($request, $response)
 		{
 			$controller = new IndexController();
-			return $controller->postLogin($request->param('username'), $request->param('password'));
+			return $controller->postLogin($request, $response);
 		});
 		
 		

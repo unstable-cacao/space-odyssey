@@ -10,37 +10,34 @@ use Squid\MySql\Impl\Connectors\Object\Generic\GenericIdConnector;
 
 class UserDAO implements IUserDAO
 {
-	/** @var \Squid\MySql\IMySqlConnector */
-	private $conn;
-	
 	/** @var GenericIdConnector */
-	private $objectConn;
+	private $conn;
 	
 	
 	public function __construct()
 	{
-		$this->conn = MySQLConnection::conn();
-		$this->objectConn = new GenericIdConnector();
-		$this->objectConn
-			->setConnector($this->conn)
-			->setAutoIncrementId('ID')
+		$conn = MySQLConnection::conn();
+		$this->conn = new GenericIdConnector();
+		$this->conn
 			->setTable('User')
-			->setObjectMap(User::class, ['Created', 'Modified']);
+			->setConnector($conn)
+			->setObjectMap(User::class, ['Created', 'Modified'])
+			->setAutoIncrementId('ID');
 	}
 	
 	
 	public function load(int $ID): ?User
 	{
-		return $this->objectConn->loadById($ID);
+		return $this->conn->loadById($ID);
 	}
 	
 	public function loadByUsername(string $username): ?User
 	{
-		return $this->objectConn->selectObjectByField('Username', $username);
+		return $this->conn->selectObjectByField('Username', $username);
 	}
 	
 	public function save(User $user): void
 	{
-		$this->objectConn->save($user);
+		$this->conn->save($user);
 	}
 }
