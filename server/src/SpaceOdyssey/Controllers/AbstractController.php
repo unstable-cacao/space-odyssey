@@ -2,9 +2,6 @@
 namespace SpaceOdyssey\Controllers;
 
 
-use SpaceOdyssey\Objects\AuthData;
-
-
 abstract class AbstractController
 {
 	protected function render(string $subject, array $params = [])

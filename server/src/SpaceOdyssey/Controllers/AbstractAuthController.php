@@ -46,6 +46,6 @@ abstract class AbstractAuthController extends AbstractController
 			}
 		}
 		
-		IndexController::login($arguments[0]);
+		LoginController::login($arguments[0]);
 	}
 }

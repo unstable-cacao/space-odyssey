@@ -3,6 +3,7 @@ namespace SpaceOdyssey;
 
 
 use SpaceOdyssey\Controllers\IndexController;
+use SpaceOdyssey\Controllers\LoginController;
 
 
 class Routing
@@ -18,8 +19,7 @@ class Routing
 		
 		$klein->respond('POST', '/login', function ($request, $response)
 		{
-			$controller = new IndexController();
-			return $controller->postLogin($request, $response);
+			return LoginController::postLogin($request, $response);
 		});
 		
 		
