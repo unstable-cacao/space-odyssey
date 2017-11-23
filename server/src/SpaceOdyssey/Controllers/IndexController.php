@@ -9,16 +9,20 @@ use SpaceOdyssey\Objects\AuthData;
 use SpaceOdyssey\SkeletonInit;
 
 
-class IndexController extends Controller
+/**
+ * @method static index(...$args)
+ * @method static login(...$args)
+ */
+class IndexController extends AbstractController
 {
-	protected function index()
+	protected function indexAction()
 	{
 		return 'Hello World!!';
 	}
 	
-	protected function login()
+	protected function loginAction()
 	{
-		include __DIR__ . '/../../../../web/index/views/login.php';
+		$this->render('login');
 	}
 	
 	

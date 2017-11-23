@@ -2,7 +2,7 @@
 namespace SpaceOdyssey\Controllers;
 
 
-class UserController extends Controller
+class UserController extends AbstractAuthController
 {
 	public function get()
 	{

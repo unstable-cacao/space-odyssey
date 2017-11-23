@@ -7,7 +7,7 @@ use SpaceOdyssey\Objects\AuthData;
 use SpaceOdyssey\SkeletonInit;
 
 
-abstract class Controller
+abstract class AbstractAuthController extends AbstractController
 {
 	/** @var AuthData */
 	private $auth;
@@ -37,6 +37,8 @@ abstract class Controller
 			
 			if ($authData)
 			{
+				$action = $action . 'Action';
+				
 				$self->setAuthData($authData);
 				$self->$action(...$arguments);
 				
