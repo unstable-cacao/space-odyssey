@@ -8,25 +8,11 @@ use SpaceOdyssey\Base\Modules\IAuthModule;
 use SpaceOdyssey\Objects\AuthData;
 use SpaceOdyssey\Objects\Session;
 use SpaceOdyssey\SkeletonInit;
+use SpaceOdyssey\Utils\StringUtils;
 
 
 class AuthModule implements IAuthModule
 {
-	private function generateSessionID()
-	{
-		$chars = [];
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$count = strlen($characters) - 1;
-		
-		for ($i = 0; $i < 128; $i++)
-		{
-			$chars[] = $characters[random_int(0, $count)];
-		}
-		
-		return implode('', $chars);
-	}
-	
-	
 	public function loadBySessionID(string $ID): ?AuthData
 	{
 		$result = null;
@@ -56,7 +42,7 @@ class AuthModule implements IAuthModule
 		{
 			$session = new Session();
 			$session->UserID = $user->ID;
-			$session->ID = $this->generateSessionID();
+			$session->ID = StringUtils::generateRandomString(128);
 			
 			/** @var ISessionDAO $sessionDao */
 			$sessionDao = SkeletonInit::skeleton(ISessionDAO::class);
