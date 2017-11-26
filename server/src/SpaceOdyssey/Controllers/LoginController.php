@@ -36,7 +36,7 @@ class LoginController extends AbstractController
 		
 		if ($authData)
 		{
-			$response->cookie('sessionID', $authData->Session->ID, (new \DateTime())->modify('+10 days')->getTimestamp());
+			$response->cookie('sessionID', $authData->Session->ID, strtotime('+10 days'));
 			$response->redirect('/');
 			
 			return 'Success!';
@@ -81,7 +81,7 @@ class LoginController extends AbstractController
 		$session->ID = StringUtils::generateRandomString(128);
 		Scope::skeleton(ISessionDAO::class)->save($session);
 		
-		$response->cookie('sessionID', $session->ID, (new \DateTime())->modify('+10 days')->getTimestamp());
+		$response->cookie('sessionID', $session->ID, strtotime('+10 days'));
 		$response->redirect('/');
 	}
 }
