@@ -9,4 +9,5 @@ interface ISessionDAO
 {
 	public function load(string $ID): ?Session;
 	public function save(Session $session): void;
+	public function deleteForUser(int $userID): void;
 }

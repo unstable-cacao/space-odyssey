@@ -58,7 +58,10 @@ class AuthModule implements IAuthModule
 			$session->UserID = $user->ID;
 			$session->ID = $this->generateSessionID();
 			
-			SkeletonInit::skeleton(ISessionDAO::class)->save($session);
+			/** @var ISessionDAO $sessionDao */
+			$sessionDao = SkeletonInit::skeleton(ISessionDAO::class);
+			$sessionDao->deleteForUser($user->ID);
+			$sessionDao->save($session);
 			
 			$result = new AuthData();
 			$result->Session = $session;

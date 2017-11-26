@@ -35,4 +35,9 @@ class SessionDAO implements ISessionDAO
 	{
 		$this->conn->save($session);
 	}
+	
+	public function deleteForUser(int $userID): void
+	{
+		$this->conn->deleteByField('UserID', $userID);
+	}
 }
