@@ -7,7 +7,7 @@ use SpaceOdyssey\Base\DAO\IUserDAO;
 use SpaceOdyssey\Base\Modules\IAuthModule;
 use SpaceOdyssey\Objects\AuthData;
 use SpaceOdyssey\Objects\Session;
-use SpaceOdyssey\SkeletonInit;
+use SpaceOdyssey\Scope;
 use SpaceOdyssey\Utils\StringUtils;
 
 
@@ -16,11 +16,11 @@ class AuthModule implements IAuthModule
 	public function loadBySessionID(string $ID): ?AuthData
 	{
 		$result = null;
-		$session = SkeletonInit::skeleton(ISessionDAO::class)->load($ID);
+		$session = Scope::skeleton(ISessionDAO::class)->load($ID);
 		
 		if ($session)
 		{
-			$user = SkeletonInit::skeleton(IUserDAO::class)->load($session->UserID);
+			$user = Scope::skeleton(IUserDAO::class)->load($session->UserID);
 			
 			if ($user) 
 			{
@@ -36,7 +36,7 @@ class AuthModule implements IAuthModule
 	public function loadByAuth(string $username, string $password): ?AuthData
 	{
 		$result = null;
-		$user = SkeletonInit::skeleton(IUserDAO::class)->loadByUsername($username);
+		$user = Scope::skeleton(IUserDAO::class)->loadByUsername($username);
 		
 		if ($user && password_verify($password, $user->Password))
 		{
@@ -45,7 +45,7 @@ class AuthModule implements IAuthModule
 			$session->ID = StringUtils::generateRandomString(128);
 			
 			/** @var ISessionDAO $sessionDao */
-			$sessionDao = SkeletonInit::skeleton(ISessionDAO::class);
+			$sessionDao = Scope::skeleton(ISessionDAO::class);
 			$sessionDao->deleteForUser($user->ID);
 			$sessionDao->save($session);
 			

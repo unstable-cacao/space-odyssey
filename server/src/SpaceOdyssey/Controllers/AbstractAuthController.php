@@ -4,7 +4,7 @@ namespace SpaceOdyssey\Controllers;
 
 use SpaceOdyssey\Base\Modules\IAuthModule;
 use SpaceOdyssey\Objects\AuthData;
-use SpaceOdyssey\SkeletonInit;
+use SpaceOdyssey\Scope;
 
 
 abstract class AbstractAuthController extends AbstractController
@@ -33,7 +33,7 @@ abstract class AbstractAuthController extends AbstractController
 		
 		if ($sessionID)
 		{
-			$authData = SkeletonInit::skeleton(IAuthModule::class)->loadBySessionID($sessionID);
+			$authData = Scope::skeleton(IAuthModule::class)->loadBySessionID($sessionID);
 			
 			if ($authData)
 			{

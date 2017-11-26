@@ -3,8 +3,8 @@ namespace SpaceOdyssey\DAO;
 
 
 use SpaceOdyssey\Base\DAO\IUserDAO;
-use SpaceOdyssey\MySQLConnection;
 use SpaceOdyssey\Objects\User;
+use SpaceOdyssey\Scope;
 use Squid\MySql\Impl\Connectors\Object\Generic\GenericIdConnector;
 
 
@@ -16,7 +16,7 @@ class UserDAO implements IUserDAO
 	
 	public function __construct()
 	{
-		$conn = MySQLConnection::conn();
+		$conn = Scope::mysql();
 		$this->conn = new GenericIdConnector();
 		$this->conn
 			->setTable('User')

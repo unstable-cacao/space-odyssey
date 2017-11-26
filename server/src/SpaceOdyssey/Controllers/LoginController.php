@@ -11,7 +11,7 @@ use SpaceOdyssey\Core\Enums\Sex;
 use SpaceOdyssey\Objects\AuthData;
 use SpaceOdyssey\Objects\Session;
 use SpaceOdyssey\Objects\User;
-use SpaceOdyssey\SkeletonInit;
+use SpaceOdyssey\Scope;
 use SpaceOdyssey\Utils\StringUtils;
 
 
@@ -31,7 +31,7 @@ class LoginController extends AbstractController
 	protected function postLoginAction(Request $request, Response $response)
 	{
 		/** @var AuthData $authData */
-		$authData = SkeletonInit::skeleton(IAuthModule::class)
+		$authData = Scope::skeleton(IAuthModule::class)
 			->loadByAuth($request->param('username'), $request->param('password'));
 		
 		if ($authData)
@@ -74,12 +74,12 @@ class LoginController extends AbstractController
 		
 		$user->Thumbnail = $request->param('thumbnail');
 		
-		SkeletonInit::skeleton(IUserDAO::class)->save($user);
+		Scope::skeleton(IUserDAO::class)->save($user);
 		
 		$session = new Session();
 		$session->UserID = $user->ID;
 		$session->ID = StringUtils::generateRandomString(128);
-		SkeletonInit::skeleton(ISessionDAO::class)->save($session);
+		Scope::skeleton(ISessionDAO::class)->save($session);
 		
 		$response->cookie('sessionID', $session->ID, (new \DateTime())->modify('+10 days')->getTimestamp());
 		$response->redirect('/');
