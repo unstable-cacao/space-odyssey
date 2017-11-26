@@ -17,6 +17,11 @@ class Routing
 			return IndexController::index($request);
 		});
 		
+		$klein->respond('GET', '/login', function ($request)
+		{
+			return IndexController::index($request);
+		});
+		
 		$klein->respond('POST', '/login', function ($request, $response)
 		{
 			return LoginController::postLogin($request, $response);
