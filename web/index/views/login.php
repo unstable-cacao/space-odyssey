@@ -10,7 +10,12 @@
 	<label for="password">Password</label>
 	<input type="password" name="password" id="password">
 	
+    <br>
 	<input type="submit">
+    
+    <br><br>
+    
+    <a href="/registration">Register</a>
 </form>
 </body>
 </html>

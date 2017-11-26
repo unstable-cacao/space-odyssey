@@ -21,7 +21,7 @@ class UserDAO implements IUserDAO
 		$this->conn
 			->setTable('User')
 			->setConnector($conn)
-			->setObjectMap(User::class, ['Created', 'Modified'])
+			->setObjectMap(User::class, ['Created', 'Updated', 'Deleted'])
 			->setAutoIncrementId('ID');
 	}
 	

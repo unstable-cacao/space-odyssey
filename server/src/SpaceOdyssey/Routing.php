@@ -22,6 +22,16 @@ class Routing
 			return LoginController::postLogin($request, $response);
 		});
 		
+		$klein->respond('GET', '/registration', function ($request)
+		{
+			return LoginController::registration($request);
+		});
+		
+		$klein->respond('POST', '/registration', function ($request, $response)
+		{
+			return LoginController::postRegistration($request, $response);
+		});
+		
 		
 		$klein->dispatch();
 	}

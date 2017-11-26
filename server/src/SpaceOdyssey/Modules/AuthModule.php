@@ -38,7 +38,7 @@ class AuthModule implements IAuthModule
 		$result = null;
 		$user = SkeletonInit::skeleton(IUserDAO::class)->loadByUsername($username);
 		
-		if ($user && $user->Password == $password)
+		if ($user && password_verify($password, $user->Password))
 		{
 			$session = new Session();
 			$session->UserID = $user->ID;
