@@ -1,0 +1,12 @@
+(function ()
+{
+	var module = {};
+	
+	(function (module)
+	{
+		<%= contents %>
+	})(module);
+	
+	var ns = new module.exports(window);
+	window.namespace = (ns.getCreator());
+})();
