@@ -50,10 +50,17 @@ const Build = {
 		gulp.src(FILES.js)
 			.pipe(concat(JS_BUILD_NAME))
 			.pipe(gulp.dest(DIST_DIRECTORY));
-	}
+	},
+
+    buildJQuery: function ()
+    {
+        gulp.src(['node_modules/jquery/dist/jquery.js'])
+			.pipe(gulp.dest(DIST_DIRECTORY));
+    }
 };
 
 
 gulp.task('build-namespace', Build.buildNamespace);
-gulp.task('build-js', [ 'build-namespace' ], Build.buildJs);
+gulp.task('build-jquery', Build.buildJQuery);
+gulp.task('build-js', [ 'build-jquery', 'build-namespace' ], Build.buildJs);
 gulp.task('build', [ 'build-js' ]);

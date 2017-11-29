@@ -16,5 +16,8 @@
     "oktopost-oyster": "^1.0.1",
     "oktopost-plankton": "^1.0.0",
     "oktopost-sea-route": "^1.0.6"
+  },
+  "devDependencies": {
+    "jquery": "^3.2.1"
   }
 }
