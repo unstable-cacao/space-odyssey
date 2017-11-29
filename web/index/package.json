@@ -1,0 +1,20 @@
+{
+  "name": "index",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-wrap": "^0.13.0",
+    "oktopost-classy": "^1.0.4",
+    "oktopost-duct": "^1.0.3",
+    "oktopost-namespace": "^2.0.2",
+    "oktopost-oyster": "^1.0.1",
+    "oktopost-plankton": "^1.0.0",
+    "oktopost-sea-route": "^1.0.6"
+  }
+}

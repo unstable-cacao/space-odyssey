@@ -1,4 +1,4 @@
-namespace('Space', () =>
+namespace('Space', function ()
 {
-	this.App = {};
+	this.App = { b: 4 };
 });
