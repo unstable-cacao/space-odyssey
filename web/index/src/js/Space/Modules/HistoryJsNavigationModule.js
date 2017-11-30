@@ -30,7 +30,7 @@ namespace('Space.Modules', function (window)
             handleURL(window.location.pathname + window.location.search);
         });
 
-        $(document).on('click', 'sp-link', function (e)
+        $(document).on('click', 'a[sp-link]', function (e)
         {
             e.preventDefault();
             navigate($(this).attr('href'));
