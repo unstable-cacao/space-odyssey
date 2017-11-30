@@ -35,4 +35,21 @@ class PartyDAO implements IPartyDAO
 	{
 		$this->conn->save($party);
 	}
+	
+	/**
+	 * @return Party[]
+	 */
+	public function loadAll(): array
+	{
+		return $this->conn->all();
+	}
+	
+	public function delete(int $ID): void
+	{
+		$this->conn->getConnector()
+			->update()
+			->set('Deleted', time())
+			->byField('ID', $ID)
+			->execute();
+	}
 }

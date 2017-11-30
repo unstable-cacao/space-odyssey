@@ -30,7 +30,7 @@ class LogController extends AbstractApiController
 	
 	protected function newLogAction(Request $request, Response $response)
 	{
-		/** @var ILogDAO $userDao */
+		/** @var ILogDAO $logDao */
 		$logDao = Scope::skeleton(ILogDAO::class);
 		
 		$log = new Log();
