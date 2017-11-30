@@ -45,7 +45,7 @@ class LoginController extends AbstractController
 		
 		if ($authData)
 		{
-			$response->cookie('sessionID', $authData->Session->ID, strtotime('+10 days'));
+			$response->cookie('sessionID', $authData->Session->ID, strtotime('+10 days'), '/', 'space.com');
 			$response->redirect('/');
 			
 			return 'Success!';
