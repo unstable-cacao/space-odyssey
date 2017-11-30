@@ -12,14 +12,14 @@ class Routing
 	{
 		$klein = new \Klein\Klein();
 		
-		$klein->respond('GET', '/', function ($request)
+		$klein->respond('GET', '/', function ($request, $response)
 		{
-			return IndexController::index($request);
+			return IndexController::index($request, $response);
 		});
 		
-		$klein->respond('GET', '/login', function ($request)
+		$klein->respond('GET', '/login', function ($request, $response)
 		{
-			return IndexController::index($request);
+			return LoginController::login($request, $response);
 		});
 		
 		$klein->respond('POST', '/login', function ($request, $response)
@@ -27,9 +27,9 @@ class Routing
 			return LoginController::postLogin($request, $response);
 		});
 		
-		$klein->respond('GET', '/registration', function ($request)
+		$klein->respond('GET', '/registration', function ($request, $response)
 		{
-			return LoginController::registration($request);
+			return LoginController::registration($request, $response);
 		});
 		
 		$klein->respond('POST', '/registration', function ($request, $response)
