@@ -35,4 +35,21 @@ class PersonalityDAO implements IPersonalityDAO
 	{
 		$this->conn->save($personality);
 	}
+	
+	/**
+	 * @return Personality[]
+	 */
+	public function loadAll(): array
+	{
+		return $this->conn->all();
+	}
+	
+	public function delete(int $ID): void
+	{
+		$this->conn->getConnector()
+			->update()
+			->set('Deleted', time())
+			->byField('ID', $ID)
+			->execute();
+	}
 }

@@ -4,6 +4,7 @@ namespace SpaceOdyssey;
 
 use SpaceOdyssey\Controllers\LogController;
 use SpaceOdyssey\Controllers\PartyController;
+use SpaceOdyssey\Controllers\PersonalityController;
 use SpaceOdyssey\Controllers\UserController;
 
 
@@ -26,6 +27,11 @@ class RoutingApi
 		$klein->respond('GET', '/parties', function ($request, $response)
 		{
 			return PartyController::parties($request, $response);
+		});
+		
+		$klein->respond('GET', '/personalities', function ($request, $response)
+		{
+			return PersonalityController::personalities($request, $response);
 		});
 		
 		$klein->with('/user', function () use ($klein) {
@@ -75,6 +81,24 @@ class RoutingApi
 			
 			$klein->respond('DELETE', '/[:id]', function ($request, $response) {
 				return PartyController::deleteParty($request, $response, $request->id);
+			});
+		});
+		
+		$klein->with('/personality', function () use ($klein) {
+			$klein->respond('GET', '/[:id]', function ($request, $response) {
+				return PersonalityController::personality($request, $response, $request->id);
+			});
+			
+			$klein->respond('POST', '/', function ($request, $response) {
+				return PersonalityController::newPersonality($request, $response);
+			});
+			
+			$klein->respond('PUT', '/[:id]', function ($request, $response) {
+				return PersonalityController::updatePersonality($request, $response, $request->id);
+			});
+			
+			$klein->respond('DELETE', '/[:id]', function ($request, $response) {
+				return PersonalityController::deletePersonality($request, $response, $request->id);
 			});
 		});
 		
