@@ -49,7 +49,7 @@ class UserDAO implements IUserDAO
 	 */
 	public function loadAll(): array
 	{
-		return $this->conn->selectObjects();
+		return $this->conn->all();
 	}
 	
 	public function delete(int $ID): void

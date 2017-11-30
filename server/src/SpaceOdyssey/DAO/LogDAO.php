@@ -35,4 +35,17 @@ class LogDAO implements ILogDAO
 	{
 		$this->conn->save($log);
 	}
+	
+	/**
+	 * @return Log[]
+	 */
+	public function loadAll(): array
+	{
+		return $this->conn->all();
+	}
+	
+	public function delete(int $ID): void
+	{
+		$this->conn->deleteById($ID);
+	}
 }
