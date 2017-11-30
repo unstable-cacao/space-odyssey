@@ -5,6 +5,7 @@ namespace SpaceOdyssey;
 use SpaceOdyssey\Controllers\LogController;
 use SpaceOdyssey\Controllers\PartyController;
 use SpaceOdyssey\Controllers\PersonalityController;
+use SpaceOdyssey\Controllers\SkillController;
 use SpaceOdyssey\Controllers\UserController;
 
 
@@ -32,6 +33,11 @@ class RoutingApi
 		$klein->respond('GET', '/personalities', function ($request, $response)
 		{
 			return PersonalityController::personalities($request, $response);
+		});
+		
+		$klein->respond('GET', '/skills', function ($request, $response)
+		{
+			return SkillController::skills($request, $response);
 		});
 		
 		$klein->with('/user', function () use ($klein) {
@@ -99,6 +105,24 @@ class RoutingApi
 			
 			$klein->respond('DELETE', '/[:id]', function ($request, $response) {
 				return PersonalityController::deletePersonality($request, $response, $request->id);
+			});
+		});
+		
+		$klein->with('/skill', function () use ($klein) {
+			$klein->respond('GET', '/[:id]', function ($request, $response) {
+				return SkillController::skill($request, $response, $request->id);
+			});
+			
+			$klein->respond('POST', '/', function ($request, $response) {
+				return SkillController::newSkill($request, $response);
+			});
+			
+			$klein->respond('PUT', '/[:id]', function ($request, $response) {
+				return SkillController::updateSkill($request, $response, $request->id);
+			});
+			
+			$klein->respond('DELETE', '/[:id]', function ($request, $response) {
+				return SkillController::deleteSkill($request, $response, $request->id);
 			});
 		});
 		

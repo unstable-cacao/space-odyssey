@@ -35,4 +35,21 @@ class SkillDAO implements ISkillDAO
 	{
 		$this->conn->save($skill);
 	}
+	
+	/**
+	 * @return Skill[]
+	 */
+	public function loadAll(): array
+	{
+		return $this->conn->all();
+	}
+	
+	public function delete(int $ID): void
+	{
+		$this->conn->getConnector()
+			->update()
+			->set('Deleted', time())
+			->byField('ID', $ID)
+			->execute();
+	}
 }
