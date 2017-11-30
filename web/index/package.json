@@ -8,15 +8,16 @@
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
+    "gulp-declare": "^0.3.0",
+    "gulp-handlebars": "^4.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-wrap": "^0.13.0",
+    "jquery": "^3.2.1",
     "oktopost-classy": "^1.0.4",
     "oktopost-duct": "^1.0.3",
     "oktopost-namespace": "^2.0.2",
     "oktopost-oyster": "^1.0.1",
     "oktopost-plankton": "^1.0.0",
-    "oktopost-sea-route": "^1.0.6",
-    "jquery": "^3.2.1",
-    "gulp-handlebars": "^4.0.0"
+    "oktopost-sea-route": "^1.0.6"
   }
 }

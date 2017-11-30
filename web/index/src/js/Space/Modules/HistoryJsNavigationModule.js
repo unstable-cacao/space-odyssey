@@ -1,14 +1,14 @@
-namespace('Space.Modules.Navigation', function (window)
+namespace('Space.Modules', function (window)
 {
     var OysterModules			= window.Oyster.Modules.OysterModules;
     var BaseNavigationModule	= window.Oyster.Modules.BaseNavigationModule;
-
-    var Selectors 	= window.Space.Config.Selectors;
-    var Environment	= window.Space.Environment;
+    
+	var classify	= window.Classy.classify;
+	var inherit     = window.Classy.inherit;
 
 
     /**
-     * @class {Space.Modules.Navigation.HistoryJsNavigationModule}
+     * @class {Space.Modules.HistoryJsNavigationModule}
      * @alias {HistoryJsNavigationModule}
      *
      * @extends {BaseNavigationModule}
@@ -30,7 +30,7 @@ namespace('Space.Modules.Navigation', function (window)
             handleURL(window.location.pathname + window.location.search);
         });
 
-        $(document).on('click', Selectors.gotoLink, function (e)
+        $(document).on('click', 'sp-link', function (e)
         {
             e.preventDefault();
             navigate($(this).attr('href'));
@@ -48,9 +48,6 @@ namespace('Space.Modules.Navigation', function (window)
 
     HistoryJsNavigationModule.prototype.navigate = function (url)
     {
-        if (!Environment.isProduction())
-            console.log('Navigating to: ' + url);
-
         history.pushState(null, null, url);
         this._routing.handleURL(url);
     };
@@ -70,7 +67,7 @@ namespace('Space.Modules.Navigation', function (window)
     HistoryJsNavigationModule.prototype.handleMiss = function (url)
     {
         console.error('Could not handle URL: ' + url);
-        this.goto('/error/not-found');
+        this.goto('/');
     };
 
 

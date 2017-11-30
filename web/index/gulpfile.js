@@ -1,7 +1,9 @@
-var gulp	= require('gulp');
-var wrap 	= require('gulp-wrap');
-var rename	= require('gulp-rename');
-var concat 	= require('gulp-concat');
+var gulp		= require('gulp');
+var wrap 		= require('gulp-wrap');
+var rename		= require('gulp-rename');
+var concat 		= require('gulp-concat');
+var declare 	= require('gulp-declare');
+var handlebars 	= require('gulp-handlebars');
 
 
 const TEMP_BUILD_DIRECTORY	= 'src/build/tmp';
@@ -30,7 +32,7 @@ function getDependencies()
 		function (root)
 		{
 			var load = [
-				root.Space.App
+				root.Space.Boot
 			];
 		});
 }
@@ -52,15 +54,52 @@ const Build = {
 			.pipe(gulp.dest(DIST_DIRECTORY));
 	},
 
-    buildJQuery: function ()
+    buildLibs: function ()
     {
-        gulp.src(['node_modules/jquery/dist/jquery.js'])
+        gulp.src(
+        	[
+        		'node_modules/handlebars/dist/handlebars.runtime.min.js',
+        		'node_modules/jquery/dist/jquery.js'
+			])
 			.pipe(gulp.dest(DIST_DIRECTORY));
-    }
+    },
+	
+	buildViews: function ()
+	{
+		gulp.src(['src/view/Templates/**/*'])
+			.pipe(handlebars())
+			.pipe(wrap('Handlebars.template(<%= contents %>)'))
+			.pipe(declare({
+				namespace: 'Handlebars.template',
+				noRedeclare: true,
+				processName: function (filePath) {
+					return declare.processNameByPath(filePath.replace('src/view/Templates', ''));
+				}
+			}))
+			.pipe(concat('space.templates.js'))
+			.pipe(gulp.dest(DIST_DIRECTORY));
+	
+		gulp.src(['src/view/Partials/**/*'])
+			.pipe(handlebars())
+			.pipe(wrap('Handlebars.registerPartial(<%= processPartialName(file.relative) %>, Handlebars.template(<%= contents %>));', {}, {
+				imports: {
+					processPartialName: function (fileName) {
+						return JSON.stringify(fileName.replace('.hbs.js', ''));
+					}
+				}
+			}))
+			.pipe(concat('space.partials.js'))
+			.pipe(gulp.dest(DIST_DIRECTORY));
+		
+		gulp.src(['src/view/Helpers/**/*'])
+			.pipe(concat('space.helpers.js'))
+			.pipe(gulp.dest(DIST_DIRECTORY));
+	}
 };
 
 
 gulp.task('build-namespace', Build.buildNamespace);
-gulp.task('build-jquery', Build.buildJQuery);
-gulp.task('build-js', [ 'build-jquery', 'build-namespace' ], Build.buildJs);
+gulp.task('build-libs', Build.buildLibs);
+gulp.task('build-views', Build.buildViews);
+gulp.task('build-js', [ 'build-libs', 'build-views', 'build-namespace' ], Build.buildJs);
 gulp.task('build', [ 'build-js' ]);
