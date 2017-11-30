@@ -1,2 +1,4 @@
 <?php
-// boot server
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+\SpaceOdyssey\RoutingApi::dispatch();

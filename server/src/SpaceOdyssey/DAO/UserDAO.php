@@ -10,6 +10,9 @@ use Squid\MySql\Impl\Connectors\Object\Generic\GenericIdConnector;
 
 class UserDAO implements IUserDAO
 {
+	private const NAME = 'User';
+	
+	
 	/** @var GenericIdConnector */
 	private $conn;
 	
@@ -39,5 +42,22 @@ class UserDAO implements IUserDAO
 	public function save(User $user): void
 	{
 		$this->conn->save($user);
+	}
+	
+	/**
+	 * @return User[]
+	 */
+	public function loadAll(): array
+	{
+		return $this->conn->selectObjects();
+	}
+	
+	public function delete(int $ID): void
+	{
+		$this->conn->getConnector()
+			->update()
+			->set('Deleted', time())
+			->byField('ID', $ID)
+			->execute();
 	}
 }
